@@ -236,10 +236,7 @@ class MatrizRala:
                 resultado[i,j]=suma
                
         return resultado
-                
-                
-
-        
+                    
     def __repr__( self ):
         res = 'MatrizRala([ \n'
         for i in range( self.shape[0] ):
