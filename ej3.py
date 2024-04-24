@@ -5,13 +5,24 @@ import numpy as np
 def getMatD(W:MatrizRala)->MatrizRala:
 
     pass
-def getMatNump(W:np.ndarray)->np.ndarray:
+def getMatDNump(W:np.ndarray)->np.ndarray:
+    D = np.zeros_like(W)
+    for i in range(D.shape[0]):
+        D[i,i] = sum(W[i,:])
+    return D
     
-    pass
+def nextP(P:np.ndarray,W,D,d)->np.ndarray:
+    termino_1 = 1-d / W.shape[0]
+    termino_1 = np.zeros_like(P) + 1 * termino_1
+    termino_2 = d * W @ D @ P
+    return termino_1 + termino_2
+
 
 def mainNumpy():
     N = 11
+    d = 0.85
     W = np.zeros((N,N))
+    P = np.zeros((N,1)) + 1
 
     # CITAS A-0
     W[0][2] = 1
@@ -48,9 +59,24 @@ def mainNumpy():
 
     # CITAS K-10
 
-    print(W)
-    print(W[0,:])
-    print(np.sum(W[0,:]))
+    print(W,sep="\n")
+    print(P)
+    
+    D = getMatDNump(W)
+    print(D)
+
+    print("INICIO: \n")
+    print(P)
+    for i in range(10):
+        newP = nextP(P,W,D,d)
+        # print(newP - P)
+        print("DIF: ")
+        print(sum(newP - P))
+        P = newP
+
+
+
+
 
 
 
@@ -65,7 +91,11 @@ def mainNumpy():
 
 def main():
     N = 11
+    d = 0.85
     W = MatrizRala(N,N)
+
+    
+
     print(W.__repr__())
 
     pass
